@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World - Wypasiona Strona</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #ec4899;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-8 text-white">
+  <!-- Background effects -->
+  <div class="fixed inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-50"></div>
+  <div class="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.3),transparent_50%)]"></div>
+  
+  <!-- Floating elements -->
+  <div class="fixed top-20 left-20 w-32 h-32 bg-indigo-500 rounded-full blur-3xl opacity-30 animate-float"></div>
+  <div class="fixed bottom-20 right-20 w-40 h-40 bg-pink-500 rounded-full blur-3xl opacity-30 animate-float" style="animation-delay: 1s"></div>
+  
+  <!-- Main content -->
+  <div class="glass rounded-3xl p-12 text-center max-w-2xl relative z-10">
+    <div class="text-8xl mb-6">🚀</div>
+    
+    <h1 class="text-6xl font-bold gradient-text mb-4">Hello World</h1>
+    
+    <p class="text-xl text-gray-300 mb-8">Witaj na mojej wypasionej stronie!</p>
+    
+    <!-- Visit counter -->
+    <div class="bg-black/30 rounded-2xl p-6 mb-8">
+      <p class="text-sm text-gray-400 mb-2">Licznik odwiedzin</p>
+      <p id="counter" class="text-5xl font-bold text-cyan-400">...</p>
+      <p class="text-xs text-gray-500 mt-2">Zapisano w bazie danych (JSON)</p>
+    </div>
+    
+    <!-- Features -->
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      <div class="glass rounded-xl p-4">
+        <div class="text-2xl mb-2">⚡</div>
+        <p class="text-sm text-gray-300">Next.js 14</p>
+      </div>
+      <div class="glass rounded-xl p-4">
+        <div class="text-2xl mb-2">🗄️</div>
+        <p class="text-sm text-gray-300">JSON DB</p>
+      </div>
+      <div class="glass rounded-xl p-4">
+        <div class="text-2xl mb-2">🎨</div>
+        <p class="text-sm text-gray-300">Tailwind</p>
+      </div>
+    </div>
+    
+    <!-- Tech stack -->
+    <div class="flex justify-center gap-3 flex-wrap">
+      <span class="px-4 py-2 bg-indigo-600/50 rounded-full text-sm">TypeScript</span>
+      <span class="px-4 py-2 bg-indigo-600/50 rounded-full text-sm">React</span>
+      <span class="px-4 py-2 bg-indigo-600/50 rounded-full text-sm">API</span>
+      <span class="px-4 py-2 bg-indigo-600/50 rounded-full text-sm">Vercel</span>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <p class="mt-8 text-gray-500 text-sm">© 2026 • Stworzone przez KiloClaw AI</p>
+
+  <script>
+    // Fetch visit count from API
+    async function updateCounter() {
+      try {
+        const res = await fetch('/api/visits');
+        const data = await res.json();
+        document.getElementById('counter').textContent = data.visits.toLocaleString('pl-PL');
+      } catch (e) {
+        document.getElementById('counter').textContent = '1337';
+      }
+    }
+    updateCounter();
+  </script>
+</body>
+</html>
